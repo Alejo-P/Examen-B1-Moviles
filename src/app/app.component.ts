@@ -7,7 +7,9 @@ import { SplashScreen } from '@capacitor/splash-screen';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor() {
+    this.showSplash();
+  }
 
   async showSplash() {
     await SplashScreen.show({
