@@ -5,11 +5,3 @@ Pagina de inicio donde se muestra una lista de 10 libros con imagenes aleatorias
 ![{27DF1443-99BE-46ED-8D31-08DE78484FEB}](https://github.com/user-attachments/assets/ff1bfca2-ea3b-441a-81f4-a5f22d7e9623)
 
 Funcionamiento del boton guardar, que guarda el titulo del libor el la URL de la imagen del perro
-
-npm i @capacitor/android
-npm i @capacitor/splash-screen
-ionic build
-npx cap add android
-npm install @capacitor/assets --save-dev
-npx capacitor-assets generate
-npx cap open android
