@@ -79,9 +79,9 @@ export class HomePage implements OnInit {
       });
 
       if (resultado) {
-        this.showModalElement('Guardado', 'Elemento guardado correctamente');
+        this.showModalElement('Guardado', 'Elemento guardado correctamente en firebase');
       } else {
-        this.showModalElement('Error', 'Error al guardar el elemento');
+        this.showModalElement('Error', 'Error al guardar el elemento en firebase');
       }
 
       console.log('Resultado de guardar:', resultado);
