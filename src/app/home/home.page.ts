@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BooksService } from '../services/books.service';
 import { DogsService } from '../services/dogs.service';
 import { StorageService } from '../services/storage.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +12,10 @@ import { StorageService } from '../services/storage.service';
 export class HomePage implements OnInit {
   elementos: any[] = [];
   isLoading = false;
+  showModal = false;
+  titleModal = '';
+  textModal = '';
 
-  
   constructor(
     private booksService: BooksService,
     private dogsService: DogsService,
@@ -23,49 +26,83 @@ export class HomePage implements OnInit {
     this.getElements();
   }
 
-  // Metodo para obtener los libros
-  async getBooks(){
-    const response = await this.booksService.listBooks(10).toPromise();
-    const books = response.results;
-    return books;
+  // Método para obtener los libros
+  async getBooks(): Promise<any[]> {
+    try {
+      const response = await firstValueFrom(this.booksService.listBooks(10));
+      return response.results || [];
+    } catch (error) {
+      console.error('Error al obtener libros:', error);
+      return [];
+    }
   }
 
-  // Metodo para obtener una lista de razas de perros
-  async getRandomDog() {
-    const response =  await this.dogsService.getRandomImage().toPromise();  
-    const imageDog = response.message;
-    return imageDog;
+  // Método para obtener una imagen aleatoria de perro
+  async getRandomDog(): Promise<string> {
+    try {
+      const response = await firstValueFrom(this.dogsService.getRandomImage());
+      return response.message || '';
+    } catch (error) {
+      console.error('Error al obtener imagen de perro:', error);
+      return '';
+    }
   }
 
-  // Unificar la respuesta en la lista de elementos
+  // Método para unificar la respuesta en la lista de elementos
   async getElements() {
     this.isLoading = true;
-    const libros = await this.getBooks();
-    const elemento = {}
-
-    libros.forEach((libro:any) => {
-      this.elementos.push({
-        title: libro.title,
-        image: ""
-      });
-    });
-
-    for (let i = 0; i < this.elementos.length; i++) {
-      const image = await this.getRandomDog();
-      this.elementos[i].image = image;
+    try {
+      const libros = await this.getBooks();
+      this.elementos = await Promise.all(
+        libros.map(async (libro: any) => {
+          const image = await this.getRandomDog();
+          return {
+            title: libro.title,
+            image,
+          };
+        })
+      );
+      console.log(this.elementos);
+    } catch (error) {
+      console.error('Error al obtener elementos:', error);
+    } finally {
+      this.isLoading = false;
     }
-    console.log(this.elementos);
-    this.isLoading = false;
   }
 
-  // Guardar en firebase el elemento
+  // Guardar en Firebase el elemento
   async saveElement(element: any) {
-    const resultado = await this.storageService.addNote({
-      title: element.title,
-      text: element.image
-    });
+    try {
+      const resultado = await this.storageService.addNote({
+        title: element.title,
+        text: element.image,
+      });
 
-    console.log(resultado);
-    
+      if (resultado) {
+        this.showModalElement('Guardado', 'Elemento guardado correctamente');
+      } else {
+        this.showModalElement('Error', 'Error al guardar el elemento');
+      }
+
+      console.log('Resultado de guardar:', resultado);
+    } catch (error) {
+      console.error('Error al guardar elemento:', error);
+      this.showModalElement('Error', 'Error al guardar el elemento');
+    } finally {
+      setTimeout(() => this.hideModal(), 4000);
+    }
+  }
+
+  // Método para mostrar el modal
+  showModalElement(title: string, text: string) {
+    this.titleModal = title;
+    this.textModal = text;
+    this.showModal = true;
+  }
+
+  // Método para ocultar automáticamente el modal
+  hideModal() {
+    this.showModal = false;
   }
 }
+

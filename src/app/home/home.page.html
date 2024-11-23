@@ -1,15 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Libros y perros
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding ">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Libros y perros</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -22,7 +22,7 @@
         *ngFor="let elemento of elementos"
       >
         <ion-card
-        class="ion-border-radius"
+        class="flex flex-col justify-center items-center bg-slate-900 rounded-lg shadow-lg shadow-slate-700 w-full h-full"
         >
           <ion-card-header>
             <ion-card-title>{{ elemento.title }}</ion-card-title>
@@ -31,8 +31,9 @@
             <img
               [src]="elemento.image"
               alt="Imagen"
-              width="40"
-              height="40"            
+              width="100"
+              height="100" 
+              class="rounded-lg shadow-lg shadow-slate-700"           
             />
 
             <ion-button
@@ -40,15 +41,45 @@
               expand="block"
               fill="clear"
               color="primary"
+              class="mt-4 w-full"
             >
               Guardar
             </ion-button>
           </ion-card-content>
         </ion-card>
-    </ion-col>
+      </ion-col>
     </ion-row>
-      
   </ion-grid>
 
-  <ion-spinner *ngIf="isLoading" class="loading-spinner"></ion-spinner>
+  <div
+    *ngIf="showModal"
+    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+  >
+    <ion-card
+      class="w-11/12 md:w-1/2 lg:w-2/3 bg-slate-950 rounded-lg shadow-lg shadow-slate-700 p-4"
+    >
+      <ion-card-header>
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
+          {{ titleModal }}
+        </h2>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="text-lg md:text-xl lg:text-2xl text-gray-300">
+          {{ textModal }}
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div
+    *ngIf="isLoading"
+    class="w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 absolute top-0 left-0"
+  >
+    <ion-spinner 
+      class="loading-spinner w-6"
+    ></ion-spinner>
+    <p
+      class="text-center text-white text-lg font-bold mt-4"
+    >Cargando...</p>
+  </div>
 </ion-content>
