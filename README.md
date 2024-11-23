@@ -1,7 +1,14 @@
-![{675CF374-DD8E-4526-8E63-F86DCB7462D5}](https://github.com/user-attachments/assets/4d847e9c-2e59-44dd-bad4-c0b396b5d495)
+![75afdbbc-8a0d-4859-8e04-0509de1618e8](https://github.com/user-attachments/assets/e2293f71-93c0-49c6-ba03-c236fd894d51)
+![image](https://github.com/user-attachments/assets/aa496ec1-3b85-4507-a223-c7f3fad4e653)
+
+Icono personalizado y Splash Screen para la app
+
+![image](https://github.com/user-attachments/assets/78676957-e77c-4c69-8372-c21c4acc8371)
+![image](https://github.com/user-attachments/assets/402f286a-9c69-47fe-9109-94cf8243711a)
+
 Pagina de inicio donde se muestra una lista de 10 libros con imagenes aleatorias de perros
 
-![{82BD5EDD-EFE6-4197-9BC4-E10CDEB2F747}](https://github.com/user-attachments/assets/f6adc348-c6ca-4d9a-a436-df183c1a907a)
-![{27DF1443-99BE-46ED-8D31-08DE78484FEB}](https://github.com/user-attachments/assets/ff1bfca2-ea3b-441a-81f4-a5f22d7e9623)
+![image](https://github.com/user-attachments/assets/2fcbaeb5-b2b2-4b55-906e-38860385f1de)
+![image](https://github.com/user-attachments/assets/f48520f6-0e1d-411d-8c9c-2f3b2b9e73bc)
 
 Funcionamiento del boton guardar, que guarda el titulo del libor el la URL de la imagen del perro
